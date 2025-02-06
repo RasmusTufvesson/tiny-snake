@@ -13,8 +13,12 @@ fn main() {
 
     let window = video_subsystem.window("Tiny Snake", window_size.0, window_size.1)
         .position_centered()
+        .borderless()
+        .input_grabbed()
         .build()
         .unwrap();
+
+    sdl_context.mouse().show_cursor(false);
 
     let mut canvas: sdl2::render::Canvas<sdl2::video::Window> = window.into_canvas().build().unwrap();
     let mut last_frame = Instant::now();
@@ -54,6 +58,9 @@ fn main() {
                         }
                         Scancode::D | Scancode::Right => {
                             direction = (1, 0);
+                        }
+                        Scancode::Escape => {
+                            return;
                         }
                         _ => {}
                     }
